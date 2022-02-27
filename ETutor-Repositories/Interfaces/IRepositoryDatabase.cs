@@ -1,7 +1,7 @@
 ﻿using System;
-using VehicleLibrary.Repositories;
+using ETutor_Repositories.Interfaces;
 
-namespace VehicleLibrary
+namespace ETutor_Repositories.Interfaces
 {
 
     public interface IRepositoryDatabase : IDisposable

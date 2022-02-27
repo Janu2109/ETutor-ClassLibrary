@@ -1,4 +1,4 @@
-﻿namespace VehicleLibrary
+﻿namespace ETutor_Repositories.Interfaces
 {
 
     public interface IAdaptor<InputType, OutputType>

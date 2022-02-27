@@ -1,12 +1,12 @@
-﻿using System;
+﻿using ETutor_Repositories.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
-
-namespace VehicleLibrary.Repositories
+namespace ETutor_Repositories.Repositories
 {
     public abstract class RepositoryBase<T> : RepositoryBase, IAdaptor<IDataReader, T>
     {

@@ -1,7 +1,8 @@
-﻿using System.Data;
+﻿using ETutor_Repositories.Interfaces;
+using System.Data;
 using System.Data.SqlClient;
 
-namespace VehicleLibrary.Repositories
+namespace ETutor_Repositories.Repositories
 {
 
     /// <summary>
