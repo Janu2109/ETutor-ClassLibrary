@@ -6,6 +6,6 @@ namespace ETutor_Repositories.Interfaces
 {
     public interface IUserRepositoryAsync
     {
-        Task<ICollection<IUserModel>> Select(string username, string password);
+        Task<IUserModel> Select(string username, string password);
     }
 }

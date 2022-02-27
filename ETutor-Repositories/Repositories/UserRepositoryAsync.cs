@@ -34,7 +34,7 @@ namespace ETutor_Repositories.Repositories
             };
         }
 
-        public async Task<ICollection<IUserModel>> Select(string username, string password)
+        public async Task<IUserModel> Select(string username, string password)
         {
             Database.Validate();
 
@@ -57,7 +57,7 @@ namespace ETutor_Repositories.Repositories
 
                 using (var user = await command.ExecuteReaderAsync())
                 {
-                    return (ICollection<IUserModel>)await ReadAsync(user, this);
+                    return await ReadAsync(user, this);
                 }
             }
         }
