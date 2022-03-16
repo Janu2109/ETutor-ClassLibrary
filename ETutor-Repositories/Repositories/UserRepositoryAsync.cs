@@ -61,5 +61,79 @@ namespace ETutor_Repositories.Repositories
                 }
             }
         }
+
+        public async Task<int> Insert(string userName, string password, string firstName, string lastName, long idNo, string city, string email)
+        {
+            Database.Validate();
+
+            using (var command = new SqlCommand("[dbo].[USP_INSERT_Student]", Database.SqlConnection as SqlConnection))
+            {
+                //Set command type I want to fire
+                command.CommandType = CommandType.StoredProcedure;
+
+                //Parameters Stored Proc will be expecting 
+                command.Parameters.Add(new SqlParameter("@userName", SqlDbType.NVarChar)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = userName
+                });
+                command.Parameters.Add(new SqlParameter("@password", SqlDbType.NVarChar)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = password
+
+                });
+                command.Parameters.Add(new SqlParameter("@firstName", SqlDbType.NVarChar)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = firstName
+
+                });
+                command.Parameters.Add(new SqlParameter("@lastName", SqlDbType.NVarChar)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = lastName
+
+                });
+                command.Parameters.Add(new SqlParameter("@idNo", SqlDbType.BigInt)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = idNo
+
+                });
+                command.Parameters.Add(new SqlParameter("@city", SqlDbType.NVarChar)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = city
+
+                });
+                command.Parameters.Add(new SqlParameter("@email", SqlDbType.NVarChar)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = email
+
+                });
+                command.Parameters.Add(new SqlParameter("@isStudent", SqlDbType.Bit)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = true
+
+                });
+                command.Parameters.Add(new SqlParameter("@isLecturer", SqlDbType.Bit)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = false
+
+                });
+                command.Parameters.Add(new SqlParameter("@isAdministrator", SqlDbType.Bit)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = false
+
+                });
+
+                return await command.ExecuteNonQueryAsync();
+            }
+        }
     }
 }
