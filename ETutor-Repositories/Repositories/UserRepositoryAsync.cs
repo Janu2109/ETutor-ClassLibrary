@@ -25,7 +25,7 @@ namespace ETutor_Repositories.Repositories
                 LastName = (string)dataReader["LastName"].ToString(),
                 IdNo = (int)dataReader["Id"],
                 City = (string)dataReader["City"].ToString(),
-                Email = (string)dataReader["City"].ToString(),
+                Email = (string)dataReader["Email"].ToString(),
                 IsStudent = (bool)dataReader["IsStudent"],
                 IsLecturer = (bool)dataReader["IsLecturer"],
                 IsAdministrator = (bool)dataReader["IsAdministrator"],
@@ -33,6 +33,8 @@ namespace ETutor_Repositories.Repositories
 
             };
         }
+
+        #region SELECT
 
         public async Task<IUserModel> Select(string username, string password)
         {
@@ -61,6 +63,25 @@ namespace ETutor_Repositories.Repositories
                 }
             }
         }
+
+        public async Task<ICollection<IUserModel>> Select_All()
+        {
+            Database.Validate();
+
+            using (var command = new SqlCommand("[dbo].[USP_GET_Users_All]", Database.SqlConnection as SqlConnection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+               
+                using (var user = await command.ExecuteReaderAsync())
+                { 
+                    return await ReadCollectionAsync(user, this);
+                }
+            }
+        }
+
+        #endregion
+
+        #region INSERT
 
         public async Task<int> Insert(string userName, string password, string firstName, string lastName, long idNo, string city, string email)
         {
@@ -135,5 +156,9 @@ namespace ETutor_Repositories.Repositories
                 return await command.ExecuteNonQueryAsync();
             }
         }
+
+        #endregion
+
+
     }
 }
