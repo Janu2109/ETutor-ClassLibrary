@@ -11,5 +11,9 @@ namespace ETutor_Repositories.Interfaces
         Task<int> Insert(string userName, string password, string firstName, string lastName, long idNo, string city, string email);
 
         Task<ICollection<IUserModel>> Select_All();
+
+        Task<ICollection<IUserModel>> Select_Lecture(int id);
+
+        Task<ICollection<IUserModel>> Select_Users_Lecturers();
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ETutor_Repositories.Models.User
 {
@@ -17,7 +15,7 @@ namespace ETutor_Repositories.Models.User
         bool IsStudent { get; set; }
         bool IsLecturer { get; set; }
         bool IsAdministrator { get; set; }
-        DateTime DateJoined { get; set; } 
+        DateTime DateJoined { get; set; }
 
     }
 }

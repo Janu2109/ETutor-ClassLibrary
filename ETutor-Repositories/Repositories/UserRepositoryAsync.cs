@@ -79,6 +79,43 @@ namespace ETutor_Repositories.Repositories
             }
         }
 
+        public async Task<ICollection<IUserModel>> Select_Users_Lecturers()
+        {
+            Database.Validate();
+
+            using (var command = new SqlCommand("[dbo].[USP_GET_Users_Lecturers]", Database.SqlConnection as SqlConnection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                using (var user = await command.ExecuteReaderAsync())
+                {
+                    return await ReadCollectionAsync(user, this);
+                }
+            }
+        }
+
+        public async Task<ICollection<IUserModel>> Select_Lecture(int id)
+        {
+            Database.Validate();
+
+            using (var command = new SqlCommand("[dbo].[USP_GET_Lecture]", Database.SqlConnection as SqlConnection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add(new SqlParameter("@id", SqlDbType.Int)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = id
+                });
+
+                using (var user = await command.ExecuteReaderAsync())
+                {
+                    return await ReadCollectionAsync(user, this);
+                }
+            }
+        }
+
+
         #endregion
 
         #region INSERT
