@@ -196,6 +196,43 @@ namespace ETutor_Repositories.Repositories
 
         #endregion
 
+        #region UPDATE
+
+        public async Task<int> Update_Role(int userId, bool isStudent, bool isLecture, bool isAdmin)
+        {
+            Database.Validate();
+
+            using (var command = new SqlCommand("[dbo].[USP_UPDATE_USer_Role]", Database.SqlConnection as SqlConnection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add(new SqlParameter("@userId", SqlDbType.Int)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = userId
+                });
+                command.Parameters.Add(new SqlParameter("@isStudent", SqlDbType.Bit)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = isStudent
+                });
+                command.Parameters.Add(new SqlParameter("@isLecture", SqlDbType.Bit)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = isLecture
+                });
+                command.Parameters.Add(new SqlParameter("@isAdmin", SqlDbType.Bit)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = isAdmin
+                });
+
+                return await command.ExecuteNonQueryAsync();
+            }
+        }
+
+        #endregion
+
 
     }
 }
