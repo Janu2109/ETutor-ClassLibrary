@@ -118,6 +118,31 @@ namespace ETutor_Repositories.Repositories
 
         #endregion
 
+        #region DELETE
+
+        public async Task<int> Delete_User(int userId)
+        {
+            Database.Validate();
+
+            using (var command = new SqlCommand("[dbo].[USP_DELETE_User]", Database.SqlConnection as SqlConnection))
+            {
+                //Set command type I want to fire
+                command.CommandType = CommandType.StoredProcedure;
+
+                //Parameters Stored Proc will be expecting 
+                command.Parameters.Add(new SqlParameter("@userId", SqlDbType.Int)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = userId
+                });
+
+                return await command.ExecuteNonQueryAsync();
+            }
+        }
+
+
+        #endregion
+
         #region INSERT
 
         public async Task<int> Insert(string userName, string password, string firstName, string lastName, long idNo, string city, string email)

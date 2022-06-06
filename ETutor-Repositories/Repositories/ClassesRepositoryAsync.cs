@@ -99,6 +99,21 @@ namespace ETutor_Repositories.Repositories
             }
         }
 
+        public async Task<ICollection<IClasses>> Select()
+        {
+            Database.Validate();
+
+            using (var command = new SqlCommand("[dbo].[USP_SELECT_Classes]", Database.SqlConnection as SqlConnection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                using (var classes = await command.ExecuteReaderAsync())
+                {
+                    return await ReadCollectionAsync(classes, this);
+                }
+            }
+        }
+
         #endregion
 
         #region DELETE
