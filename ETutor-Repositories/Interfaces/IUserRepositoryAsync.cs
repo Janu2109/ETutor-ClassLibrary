@@ -14,6 +14,8 @@ namespace ETutor_Repositories.Interfaces
 
         Task<ICollection<IUserModel>> Select_Lecture(int id);
 
+        Task<ICollection<IUserModel>> Select_Student_CourseId(int id);
+
         Task<ICollection<IUserModel>> Select_Users_Lecturers();
 
         Task<int> Update_Role(int userId, bool isStudent, bool isLecture, bool isAdmin);

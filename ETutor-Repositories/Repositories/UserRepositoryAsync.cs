@@ -114,6 +114,27 @@ namespace ETutor_Repositories.Repositories
                 }
             }
         }
+        public async Task<ICollection<IUserModel>> Select_Student_CourseId(int id)
+        {
+            Database.Validate();
+
+            using (var command = new SqlCommand("[dbo].[USP_GET_Students_CourseId]", Database.SqlConnection as SqlConnection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add(new SqlParameter("@courseId", SqlDbType.Int)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = id
+                });
+
+                using (var user = await command.ExecuteReaderAsync())
+                {
+                    return await ReadCollectionAsync(user, this);
+                }
+            }
+        }
+
 
 
         #endregion
