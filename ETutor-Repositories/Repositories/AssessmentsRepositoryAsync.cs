@@ -45,7 +45,7 @@ namespace ETutor_Repositories.Repositories
         {
             Database.Validate();
 
-            using (var command = new SqlCommand("", Database.SqlConnection as SqlConnection))
+            using (var command = new SqlCommand("[dbo].[USP_INSERT_Assessment]", Database.SqlConnection as SqlConnection))
             {
                 //Set command type I want to fire
                 command.CommandType = CommandType.StoredProcedure;
