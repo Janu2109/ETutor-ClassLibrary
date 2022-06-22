@@ -50,6 +50,27 @@ namespace ETutor_Repositories.Repositories
             }
         }
 
+        public async Task<ICollection<IModule>> Select_Modules_Student_Enrolled(int userId)
+        {
+            Database.Validate();
+
+            using (var command = new SqlCommand("[dbo].[USP_GET_Student_Modules]", Database.SqlConnection as SqlConnection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add(new SqlParameter("@userId", SqlDbType.Int)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = userId
+                });
+
+                using (var module = await command.ExecuteReaderAsync())
+                {
+                    return await ReadCollectionAsync(module, this);
+                }
+            }
+        }
+
         public async Task<ICollection<IModule>> Select_Modules()
         {
             Database.Validate();

@@ -158,5 +158,24 @@ namespace ETutor_Repositories.Repositories
         }
 
         #endregion
+
+        #region SELECT
+
+        public async Task<ICollection<IAssessments>> Select_Assessments()
+        {
+            Database.Validate();
+
+            using (var command = new SqlCommand("[dbo].[USP_GET_Assessments]", Database.SqlConnection as SqlConnection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                using (var assessments = await command.ExecuteReaderAsync())
+                {
+                    return await ReadCollectionAsync(assessments, this);
+                }
+            }
+        }
+
+        #endregion
     }
 }
