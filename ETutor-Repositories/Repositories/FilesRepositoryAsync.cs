@@ -109,6 +109,27 @@ namespace ETutor_Repositories.Repositories
             }
         }
 
+        public async Task<ICollection<IFiles>> Select_Module(int moduleId)
+        {
+            Database.Validate();
+
+            using (var command = new SqlCommand("[dbo].[USP_GET_Files_ModuleId]", Database.SqlConnection as SqlConnection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add(new SqlParameter("@moduleId", SqlDbType.Int)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = moduleId
+                });
+
+                using (var user = await command.ExecuteReaderAsync())
+                {
+                    return await ReadCollectionAsync(user, this);
+                }
+            }
+        }
+
         #endregion
     }
 }

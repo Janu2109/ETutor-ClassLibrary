@@ -99,6 +99,27 @@ namespace ETutor_Repositories.Repositories
             }
         }
 
+        public async Task<ICollection<IClasses>> Select_Classes_ModuleId(int moduleId)
+        {
+            Database.Validate();
+
+            using (var command = new SqlCommand("[dbo].[USP_GET_Classes_ModuleId]", Database.SqlConnection as SqlConnection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add(new SqlParameter("@moduleId", SqlDbType.Int)
+                {
+                    Direction = ParameterDirection.Input,
+                    Value = moduleId
+                });
+
+                using (var classes = await command.ExecuteReaderAsync())
+                {
+                    return await ReadCollectionAsync(classes, this);
+                }
+            }
+        }
+
         public async Task<ICollection<IClasses>> Select()
         {
             Database.Validate();

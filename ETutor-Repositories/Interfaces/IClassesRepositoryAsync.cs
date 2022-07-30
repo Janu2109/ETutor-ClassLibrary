@@ -10,6 +10,7 @@ namespace ETutor_Repositories.Interfaces
     {
         Task<int> Insert(int lectureId, int moduleId, string day, string startTime, string endTime);
         Task<ICollection<IClasses>> Select_Classes_LectureId(int lectureId);
+        Task<ICollection<IClasses>> Select_Classes_ModuleId(int moduleId);
         Task<ICollection<IClasses>> Select();
         Task<int> Delete(int classId);
     }
